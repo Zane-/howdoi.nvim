@@ -2,7 +2,7 @@
 
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension for previewing howdoi results in neovim.
 
-![preview](https://user-images.githubusercontent.com/6345012/172078691-6f4ba50c-31d2-45c5-b7ea-b764054cd417.gif)
+![preview](https://user-images.githubusercontent.com/6345012/172084208-4548f1b3-f989-43b7-81df-d0ddc1ef7b40.gif)
 
 ## Dependencies
 
@@ -28,9 +28,9 @@ require('telescope').load_extension('howdoi')
 Default config:
 
 ```lua
--- How many results to return in the response
-num_results = 1
--- Whether or not to give the source of the answer
+-- How many answers to return in the response
+num_answers = 3
+-- Whether or not to give the source of the answer(s)
 explain_answer = false
 ```
 
@@ -40,7 +40,7 @@ To change these, use telescope's `setup` function:
 require('telescope').setup({
   extensions = {
     howdoi = {
-      num_results = 5,
+      num_answers = 5,
       explain_answer = true,
     },
   },

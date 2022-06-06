@@ -19,7 +19,9 @@ local action_state = require('telescope.actions.state')
 local entry_display = require('telescope.pickers.entry_display')
 
 local opts = {
-	num_results = 1,
+	-- How many answers to return in the response
+	num_answers = 3,
+	-- Whether or not to give the source of the answer(s)
 	explain_answer = false,
 }
 
@@ -51,7 +53,7 @@ local function run()
 		finder = finder(queries),
 		previewer = previewers.new_termopen_previewer({
 			get_command = function(entry)
-				local command = { 'howdoi', '-c', '-n', opts.num_results }
+				local command = { 'howdoi', '-c', '-n', opts.num_answers }
 
 				if opts.explain_answer then
 					table.insert(command, '-x')
