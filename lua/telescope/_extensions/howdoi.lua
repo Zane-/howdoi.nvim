@@ -18,7 +18,10 @@ local previewers = require('telescope.previewers')
 local action_state = require('telescope.actions.state')
 local entry_display = require('telescope.pickers.entry_display')
 
-local opts = {}
+local opts = {
+	num_results = 1,
+	explain_answer = false,
+}
 
 -- Local storage for user-entered queries.
 -- Used as the results table for the Telescope picker.
@@ -26,7 +29,7 @@ local queries = {}
 
 local function setup(o)
 	o = o or {}
-	opts = vim.tbl_extend('force', { filetype = {} }, o)
+	opts = vim.tbl_deep_extend('force', opts, o)
 end
 
 local function run()
@@ -48,13 +51,20 @@ local function run()
 		finder = finder(queries),
 		previewer = previewers.new_termopen_previewer({
 			get_command = function(entry)
-				return { 'howdoi', '-c', entry.value }
+				local command = { 'howdoi', '-c', '-n', opts.num_results }
+
+				if opts.explain_answer then
+					table.insert(command, '-x')
+				end
+
+				table.insert(command, entry.value)
+				return command
 			end,
 		}),
-		attach_mappings = function(prompt_bufnr, map)
+		attach_mappings = function(prompt_bufnr, _)
 			actions.select_default:replace(function()
 				local query = action_state.get_current_line()
-				
+
 				if query ~= '' then
 					table.insert(queries, 1, query)
 					action_state.get_current_picker(prompt_bufnr):refresh(finder(queries), { reset_prompt = true })
