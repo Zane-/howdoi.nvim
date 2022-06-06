@@ -53,7 +53,7 @@ local function run()
 		}),
 		attach_mappings = function(prompt_bufnr, map)
 			actions.select_default:replace(function()
-				table.insert(queries, action_state.get_current_line())
+				table.insert(queries, 1, action_state.get_current_line())
 				action_state.get_current_picker(prompt_bufnr):refresh(finder(queries), { reset_prompt = true })
 			end)
 			return true
