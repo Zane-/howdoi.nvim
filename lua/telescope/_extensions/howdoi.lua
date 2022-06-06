@@ -48,7 +48,7 @@ local function run()
 		finder = finder(queries),
 		previewer = previewers.new_termopen_previewer({
 			get_command = function(entry)
-				return { 'howdoi', entry.value }
+				return { 'howdoi', '-c', entry.value }
 			end,
 		}),
 		attach_mappings = function(prompt_bufnr, map)
