@@ -38,12 +38,12 @@ To change these, use telescope's `setup` function:
 
 ```lua
 require('telescope').setup({
-	extensions = {
-		howdoi = {
-			num_results = 5,
-			explain_answer = true,
-		}
-	},
+  extensions = {
+    howdoi = {
+      num_results = 5,
+      explain_answer = true,
+    },
+  },
 })
 ```
 
@@ -51,6 +51,6 @@ require('telescope').setup({
 
 - Open the extension with `:Telescope howdoi`
 - Type a query and press `Enter`, this will add it to the results list
-- Hover over a result to see the response from `howdoi`
+- Select a result to see the response from `howdoi`
 
 Queries are saved until you quit nvim.
