@@ -47,6 +47,18 @@ require('telescope').setup({
 })
 ```
 
+To apply a theme to howdoi, you can pass a merged table like so:
+
+```lua
+require('telescope').setup({
+  extensions = {
+    howdoi = vim.tbl_deep_extend(
+      'force',
+      { num_answers = 1 },
+      require('telescope.themes').get_dropdown())
+})
+```
+
 ## Usage
 
 - Open the extension with `:Telescope howdoi`
