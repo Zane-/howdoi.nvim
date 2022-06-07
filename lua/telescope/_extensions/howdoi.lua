@@ -103,7 +103,7 @@ local function run()
 			end)
 			map('i', '<c-v>', function()
 				actions.close(prompt_bufnr)
-				vim.api.nvim_command('vsp '..action_state.get_selected_entry().value)
+				vim.api.nvim_command('vsp ' .. action_state.get_selected_entry().value)
 				vim.api.nvim_put(
 					get_command_output(make_command(action_state.get_selected_entry().value)),
 					'l',
@@ -113,7 +113,7 @@ local function run()
 			end)
 			map('i', '<c-x>', function()
 				actions.close(prompt_bufnr)
-				vim.api.nvim_command('sp '..action_state.get_selected_entry().value)
+				vim.api.nvim_command('sp ' .. action_state.get_selected_entry().value)
 				vim.api.nvim_put(
 					get_command_output(make_command(action_state.get_selected_entry().value)),
 					'l',
@@ -123,7 +123,13 @@ local function run()
 			end)
 			map('i', '<c-y>', function()
 				actions.close(prompt_bufnr)
-				vim.fn.setreg('+', get_command_output(make_command(action_state.get_selected_entry().value)))
+
+				local reg = '"'
+				if vim.opt.clipboard._value == 'unnamed' then
+					reg = '+'
+				end
+
+				vim.fn.setreg(reg, get_command_output(make_command(action_state.get_selected_entry().value)))
 			end)
 			return true
 		end,
