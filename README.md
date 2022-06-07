@@ -2,7 +2,7 @@
 
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension for previewing howdoi results in neovim.
 
-![preview](https://user-images.githubusercontent.com/6345012/172274791-4dfb5655-ec44-4233-abfc-f01fb6f22c6a.gif)
+![preview](https://user-images.githubusercontent.com/6345012/172497396-61e64081-a092-4981-a0da-d6997bd481f7.gif)
 
 ## Dependencies
 
