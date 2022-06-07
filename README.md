@@ -34,7 +34,6 @@ num_answers = 3,
 command_executor = { 'bash', '-c' },
 -- The command to pipe the results into for paging.
 pager_command = 'less -RS',
-}
 ```
 
 To change these, use telescope's `setup` function:
@@ -61,6 +60,8 @@ require('telescope').setup({
 })
 ```
 
+Note that the option `command_executor` needs to be a binary that can run a command on your system. If you don't have `bash` installed, you will need to change this. Likewise, if you don't have `less` installed, you will need to specify the option `pager_command`.
+
 ## Usage
 
 - Open the extension with `:Telescope howdoi`
@@ -73,8 +74,8 @@ Queries are saved until you quit nvim.
 
 | Mapping | Action                                         |
 |---------|------------------------------------------------|
-| `<C-d>` | Scroll then results down                       |
-| `<C-u>` | Scroll then results up                         |
+| `<C-d>` | Scroll the results down                       |
+| `<C-u>` | Scroll the results up                         |
 | `<C-y>` | Yank the results to the clipboard              |
 | `<C-p>` | Pastes the results into the current buffer     |
 | `<C-v>` | Pastes the results into a new vertical split   |
