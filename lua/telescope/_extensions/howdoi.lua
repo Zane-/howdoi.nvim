@@ -29,6 +29,18 @@ local opts = {
 -- Used as the results table for the Telescope picker.
 local queries = {}
 
+-- Gets the index of the given query in the queries table
+-- Used to remove a query.
+local function get_index_of_query(query)
+	for i, q in pairs(queries) do
+		if query == q then
+			return i
+		end
+	end
+
+	return nil
+end
+
 local function setup(o)
 	o = o or {}
 	opts = vim.tbl_deep_extend('force', opts, o)
@@ -91,6 +103,10 @@ local function run()
 					table.insert(queries, 1, query)
 					action_state.get_current_picker(prompt_bufnr):refresh(finder(queries), { reset_prompt = true })
 				end
+			end)
+			map('i', '<c-r>', function()
+				table.remove(queries, get_index_of_query(action_state.get_selected_entry().value))
+				action_state.get_current_picker(prompt_bufnr):refresh(finder(queries), { reset_prompt = true })
 			end)
 			map('i', '<c-p>', function()
 				actions.close(prompt_bufnr)

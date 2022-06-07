@@ -72,6 +72,7 @@ Queries are saved until you quit nvim.
 | Mapping | Action                                         |
 |---------|------------------------------------------------|
 | `<C-p>` | Pastes the results into the current buffer     |
+| `<C-r>` | Removes the selected query from the list       |
 | `<C-v>` | Pastes the results into a new vertical split   |
 | `<C-x>` | Pastes the results into a new horizontal split |
 | `<C-y>` | Yank the results to the clipboard              |
