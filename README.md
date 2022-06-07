@@ -28,10 +28,13 @@ require('telescope').load_extension('howdoi')
 Default config:
 
 ```lua
--- How many answers to return in the response
-num_answers = 3
--- Whether or not to give the source of the answer(s)
-explain_answer = false
+-- How many answers to return in the response.
+num_answers = 3,
+-- The binary to execute the howdoi command with.
+command_executor = { 'bash', '-c' },
+-- The command to pipe the results into for paging.
+pager_command = 'less -RS',
+}
 ```
 
 To change these, use telescope's `setup` function:
@@ -41,7 +44,6 @@ require('telescope').setup({
   extensions = {
     howdoi = {
       num_answers = 5,
-      explain_answer = true,
     },
   },
 })
@@ -71,8 +73,10 @@ Queries are saved until you quit nvim.
 
 | Mapping | Action                                         |
 |---------|------------------------------------------------|
+| `<C-d>` | Scroll then results down                       |
+| `<C-u>` | Scroll then results up                         |
+| `<C-y>` | Yank the results to the clipboard              |
 | `<C-p>` | Pastes the results into the current buffer     |
-| `<C-r>` | Removes the selected query from the list       |
 | `<C-v>` | Pastes the results into a new vertical split   |
 | `<C-x>` | Pastes the results into a new horizontal split |
-| `<C-y>` | Yank the results to the clipboard              |
+| `<C-r>` | Removes the selected query from the list       |
