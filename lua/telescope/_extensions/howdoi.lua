@@ -12,11 +12,11 @@ if not has_howdoi then
 end
 
 local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
 local finders = require('telescope.finders')
 local pickers = require('telescope.pickers')
 local previewers = require('telescope.previewers')
-local action_state = require('telescope.actions.state')
-local entry_display = require('telescope.pickers.entry_display')
+local utils = require('telescope.utils')
 
 local opts = {
 	-- How many answers to return in the response
@@ -48,22 +48,42 @@ local function run()
 		})
 	end
 
+	local make_command = function(query)
+		local command = { 'howdoi', '-c', '-n', opts.num_answers }
+
+		if opts.explain_answer then
+			table.insert(command, '-x')
+		end
+
+		table.insert(command, query)
+		return command
+	end
+
+	local get_command_output = function(command)
+		local lines = utils.get_os_command_output(command)
+
+		-- Delete all ansi color codes.
+		for i, line in pairs(lines) do
+			lines[i] = line
+				:gsub('\x1b%[%d+;%d+;%d+;%d+;%d+m', '')
+				:gsub('\x1b%[%d+;%d+;%d+;%d+m', '')
+				:gsub('\x1b%[%d+;%d+;%d+m', '')
+				:gsub('\x1b%[%d+;%d+m', '')
+				:gsub('\x1b%[%d+m', '')
+		end
+
+		return lines
+	end
+
 	pickers.new(opts, {
 		prompt_title = 'howdoi',
 		finder = finder(queries),
 		previewer = previewers.new_termopen_previewer({
 			get_command = function(entry)
-				local command = { 'howdoi', '-c', '-n', opts.num_answers }
-
-				if opts.explain_answer then
-					table.insert(command, '-x')
-				end
-
-				table.insert(command, entry.value)
-				return command
+				return make_command(entry.value)
 			end,
 		}),
-		attach_mappings = function(prompt_bufnr, _)
+		attach_mappings = function(prompt_bufnr, map)
 			actions.select_default:replace(function()
 				local query = action_state.get_current_line()
 
@@ -71,6 +91,35 @@ local function run()
 					table.insert(queries, 1, query)
 					action_state.get_current_picker(prompt_bufnr):refresh(finder(queries), { reset_prompt = true })
 				end
+			end)
+			map('i', '<c-p>', function()
+				actions.close(prompt_bufnr)
+				vim.api.nvim_put(
+					get_command_output(make_command(action_state.get_selected_entry().value)),
+					'l',
+					false,
+					true
+				)
+			end)
+			map('i', '<c-v>', function()
+				actions.close(prompt_bufnr)
+				vim.api.nvim_command('vsp '..action_state.get_selected_entry().value)
+				vim.api.nvim_put(
+					get_command_output(make_command(action_state.get_selected_entry().value)),
+					'l',
+					false,
+					true
+				)
+			end)
+			map('i', '<c-x>', function()
+				actions.close(prompt_bufnr)
+				vim.api.nvim_command('sp '..action_state.get_selected_entry().value)
+				vim.api.nvim_put(
+					get_command_output(make_command(action_state.get_selected_entry().value)),
+					'l',
+					false,
+					true
+				)
 			end)
 			return true
 		end,

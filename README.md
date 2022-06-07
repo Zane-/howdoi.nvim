@@ -54,3 +54,11 @@ require('telescope').setup({
 - Select a result to see the response from `howdoi`
 
 Queries are saved until you quit nvim.
+
+### Mappings
+
+| Mapping | Action                                         |
+|---------|------------------------------------------------|
+| `<C-x>` | Pastes the results into a new horizontal split |
+| `<C-v>` | Pastes the results into a new vertical split   |
+| `<C-p>` | Pastes the results into the current buffer     |
