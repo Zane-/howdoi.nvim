@@ -69,9 +69,9 @@ Queries are saved until you quit nvim.
 
 ### Mappings
 
-| Mapping | Action                                           |
-|---------|--------------------------------------------------|
-| `<C-p>` | Pastes the results into the current buffer       |
-| `<C-v>` | Pastes the results into a new vertical split     |
-| `<C-x>` | Pastes the results into a new horizontal split   |
-| `<C-y>` | Yank the results to the clipboard (register '+') |
+| Mapping | Action                                         |
+|---------|------------------------------------------------|
+| `<C-p>` | Pastes the results into the current buffer     |
+| `<C-v>` | Pastes the results into a new vertical split   |
+| `<C-x>` | Pastes the results into a new horizontal split |
+| `<C-y>` | Yank the results to the clipboard              |
