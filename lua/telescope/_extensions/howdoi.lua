@@ -121,6 +121,10 @@ local function run()
 					true
 				)
 			end)
+			map('i', '<c-y>', function()
+				actions.close(prompt_bufnr)
+				vim.fn.setreg('+', get_command_output(make_command(action_state.get_selected_entry().value)))
+			end)
 			return true
 		end,
 	}):find()
