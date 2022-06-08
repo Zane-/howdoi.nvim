@@ -11,7 +11,7 @@ A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension f
 
 ## Setup
 
-Install using your favorite package manager:
+Install using your favorite plugin manager:
 
 [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
